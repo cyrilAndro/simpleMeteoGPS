@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <fragment
+        android:name="cyril.cieslak.simplemeteogps.Fragments.CityFragment"
+        android:id="@+id/cityFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/yourCurrentLongitude"
+        />
+
+    <TextView
+        android:id="@+id/yourCurrentLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Latitude"
+        app:layout_constraintBottom_toTopOf="@id/button_update_coordinates"
+       app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/yourCurrentLongitude"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"/>
+
+
+    <TextView
+        android:id="@+id/yourCurrentLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Longitude!"
+        app:layout_constraintStart_toEndOf="@id/yourCurrentLatitude"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_update_coordinates"
+        android:layout_marginTop="40dp"/>
+
+
+    <Button
+        android:id="@+id/button_update_coordinates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/yourCurrentLongitude"
+
+        />
+
+    <TextView
+        android:id="@+id/jsonResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="jsonResult here"
+        app:layout_constraintTop_toBottomOf="@id/button_update_coordinates"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

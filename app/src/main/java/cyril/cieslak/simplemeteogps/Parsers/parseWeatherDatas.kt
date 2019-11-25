@@ -36,6 +36,7 @@ class parseWeatherDatas (jsonDataPreview : String) : AsyncTask<String, Void, Mut
 
         var json = jsonDataPreview
         Log.i("bongo", "jsonDataPreview dans le parser : $json")
+        Log.i("pluto", "json dans ParseWeatherDatas = $json")
 
         try {
 
@@ -44,6 +45,8 @@ class parseWeatherDatas (jsonDataPreview : String) : AsyncTask<String, Void, Mut
 
             jo = JSONObject(json)
             Log.i("banga1", "jo : $jo")
+            Log.i("pluto", "jo dans ParseWeatherDatas = $jo")
+
 
             var jaList = jo.getJSONArray("list")
             Log.i("banga1", "jaLIST : $jaList")
@@ -51,11 +54,14 @@ class parseWeatherDatas (jsonDataPreview : String) : AsyncTask<String, Void, Mut
             // get CityName
             var cityName = getCityName(jo)
             Log.i("banga1", "cityName : $cityName")
+            Log.i("pluto", "cityName dans ParseWeatherDatas = $cityName")
+
 
 
             // get CountryName
             var country = getCountryName(jo)
             Log.i("banga1", "country : $country")
+            Log.i("pluto", "country dans ParseWeatherDatas = $country")
 
 
             // Get TimeStamp and Temperature
@@ -128,6 +134,7 @@ class parseWeatherDatas (jsonDataPreview : String) : AsyncTask<String, Void, Mut
             }
 
             Log.i("bongo", "returned datas dans le parser : $datas")
+            Log.i("pluto", "Returned dans le Parser dans ParseWeatherDatas = $datas")
             return datas
 
 
@@ -136,6 +143,7 @@ class parseWeatherDatas (jsonDataPreview : String) : AsyncTask<String, Void, Mut
 
         }
         Log.i("bongo", "returned CATCH datas : $datas")
+        Log.i("pluto", "Returned CATCH DATAS dans ParseWeatherDatas = $datas")
         return datas
     }
 

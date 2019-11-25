@@ -45,29 +45,28 @@ class CityFragment : Fragment() {
 
     var adapter = ItemCityFragmentAdapter(datas)
 
-    var jsonWeatherTest =  "http://api.openweathermap.org/data/2.5/forecast?lat=55.450675&lon=-20.882057&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
+    var jsonWeatherTest =  "http://api.openweathermap.org/data/2.5/forecast?lat=48.852968&lon=-2.3499019&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.item_fragment_city, container, false)
+        return inflater.inflate(R.layout.fragment_city, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        getTheNewLocation(jsonWeatherTest)
+      //  getTheNewLocation(jsonWeatherTest)
 
         // On fait entrer viewModel dans le scope de l'activité
-        viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
 
         viewModel.getStateLatitude().observe(this, Observer {
 
             var lattitude = it
             Log.i("bingo", "valeur Lattitude = $lattitude")
 
-            val lattitudeFourDigits = "%.4f".format(lattitude)
 
             viewModel.getStateLongitude().observe(this, Observer { itt: String? ->
 
@@ -78,9 +77,9 @@ class CityFragment : Fragment() {
                 var testLongi = 20.4749
 
                 var jsonWeather =
-                   // "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
-                "http://api.openweathermap.org/data/2.5/forecast?lat=$testLat&lon=$testLongi&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
-                Log.i("bingo", "la String = $jsonWeather")
+                  "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
+               // "http://api.openweathermap.org/data/2.5/forecast?lat=44.7914748&lon=20.4775094&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
+                Log.i("pluto", "jsonWeather dasn CityFragment = $jsonWeather")
                 // getTheNewLocation(jsonWeather)
 
                 getTheNewLocation(jsonWeather)
@@ -95,15 +94,17 @@ class CityFragment : Fragment() {
     private fun getTheNewLocation(jsonWeather: String) {
         var jsonDataPreview = JSONDownloader(context!!, jsonWeather).execute().get()
         Log.i("bongo", " bingo dans fragment city : $jsonDataPreview")
+        Log.i("pluto", "jsonDataPreview dasn CityFragment = $jsonDataPreview")
 
        var datas = parseWeatherDatas(jsonDataPreview).parseDatasFromApi(jsonDataPreview)
         Log.i("bongo", " datas values dans fragment city : $datas")
+        Log.i("pluto", "datas CityFragment = $datas")
         adapter = ItemCityFragmentAdapter(datas)
 
         val recyclerView = view?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView_fragmentCity)
         recyclerView?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         recyclerView?.adapter = this.adapter
-
+        Log.i("pluto", "RecycylerView dasn CityFragment = $recyclerView")
     }
 
 

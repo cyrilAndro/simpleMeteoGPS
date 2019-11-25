@@ -1,5 +1,6 @@
 package cyril.cieslak.simplemeteogps.Adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,12 @@ import cyril.cieslak.simplemeteogps.R
 import cyril.cieslak.simplemeteogps.Weather
 import kotlinx.android.synthetic.main.item_fragment_city.view.*
 
-class ItemCityFragmentAdapter (val datas : MutableList<MutableList<Weather>>) : androidx.recyclerview.widget.RecyclerView.Adapter<ItemCityFragmentAdapter.ViewHolder> () {
+    class ItemCityFragmentAdapter (val datas : MutableList<MutableList<Weather>>) : androidx.recyclerview.widget.RecyclerView.Adapter<ItemCityFragmentAdapter.ViewHolder> () {
+
+        var ONE = 1
 
 
-    class ViewHolder (itemView : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+        class ViewHolder (itemView : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         val cityName = itemView.findViewById<TextView>(R.id.cityLocation)
         val countryName = itemView.findViewById<TextView>(R.id.countryLocation)
@@ -30,12 +33,13 @@ class ItemCityFragmentAdapter (val datas : MutableList<MutableList<Weather>>) : 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+
         holder?.cityName?.text = datas[position][0].cityName
-        holder?.countryName?.text = datas[position][1].country
+        holder?.countryName?.text = datas[position][0].country
     }
 
     override fun getItemCount(): Int {
-    return datas.size
+    return ONE
     }
 
 

@@ -3,6 +3,7 @@ package cyril.cieslak.simplemeteogps.Downloader
 import android.app.ProgressDialog
 import android.content.Context
 import android.os.AsyncTask
+import android.util.Log
 import android.widget.Toast
 import java.io.BufferedInputStream
 import java.io.BufferedReader
@@ -13,141 +14,140 @@ import java.net.MalformedURLException
 import java.net.URL
 
 
+@Suppress("DEPRECATION")
+class JSONDownloader(private var c: Context, private var jsonWeather: String) :
+    AsyncTask<Void, Void, String>() {
 
 
-    @Suppress("DEPRECATION")
-    class JSONDownloader(private var c: Context, private var jsonWeather: String) :
-        AsyncTask<Void, Void, String>() {
+    private lateinit var pd: ProgressDialog
+    lateinit var bingo: String
 
 
-        private lateinit var pd: ProgressDialog
-        lateinit var bingo: String
+    // Connect to NetWork via HTTPURLConnection
+    // ***
 
+    // ***
+    fun connect(jsonWeatherNow: String): Any {
 
-        // Connect to NetWork via HTTPURLConnection
-        // ***
+        try {
+            val url = URL(jsonWeatherNow)
+            val con = url.openConnection() as HttpURLConnection
 
-        // ***
-        fun connect(jsonWeatherNow: String): Any {
+            // Con Props
 
-            try {
-                val url = URL(jsonWeatherNow)
-                val con = url.openConnection() as HttpURLConnection
+            con.requestMethod = "GET"
+            con.connectTimeout = 15000
+            con.readTimeout = 15000
+            con.doInput = true
 
-                // Con Props
+            return con
+        } catch (e: MalformedURLException) {
+            e.printStackTrace()
+            return "URL ERROR" + e.message
 
-                con.requestMethod = "GET"
-                con.connectTimeout = 15000
-                con.readTimeout = 15000
-                con.doInput = true
-
-                return con
-            } catch (e: MalformedURLException) {
-                e.printStackTrace()
-                return "URL ERROR" + e.message
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-                return "CONNECT ERROR" + e.message
-
-            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return "CONNECT ERROR" + e.message
 
         }
 
-
-        // ***
-        // Download JsonData
-        // ***
-        private fun download(): String {
-
-            val connection = connect(jsonWeather)
-            if (connection.toString().startsWith("Error")) {
-                return connection.toString()
-            }
-            // DOWNLOAD
-            try {
-                val con = connection as HttpURLConnection
-                // if response is HTTP OK
-                if (con.responseCode == 200) {
-
-                    // GET INPUT FROM STREAM
-                    val `is` = BufferedInputStream(con.inputStream)
-                    val br = BufferedReader(InputStreamReader(`is`))
+    }
 
 
-                    val jsonData = StringBuffer()
-                    var line: String?
+    // ***
+    // Download JsonData
+    // ***
+    private fun download(): String {
 
-                    do {
-                        line = br.readLine()
-
-                        if (line == null) {
-                            break
-                        }
-                        jsonData.append(line + "\n")
-
-                    } while (true)
-
-                    // CLOSING RESOURCES
-                    br.close()
-                    `is`.close()
-
-
-                    // RETURN JSON
-                    return jsonData.toString()
-
-
-                } else {
-                    return "Error" + con.responseMessage
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
-                return "Error" + e.message
-            }
-
-
+        val connection = connect(jsonWeather)
+        if (connection.toString().startsWith("Error")) {
+            return connection.toString()
         }
+        // DOWNLOAD
+        try {
+            val con = connection as HttpURLConnection
+            // if response is HTTP OK
+            if (con.responseCode == 200) {
 
-        // SHOW DIALOG WHILE DOWNLOADING DATAS
-        override fun onPreExecute() {
-            super.onPreExecute()
+                // GET INPUT FROM STREAM
+                val `is` = BufferedInputStream(con.inputStream)
+                val br = BufferedReader(InputStreamReader(`is`))
 
-            pd = ProgressDialog(c)
-            pd.setTitle("Chargement des données")
-            pd.setMessage("réponse de la Grenouille... Please wait...")
-            pd.show()
-        }
 
-        // DOWNLOADING IN BACKGROUND
-        override fun doInBackground(vararg Voids: Void): String {
-            return download()
-        }
+                val jsonData = StringBuffer()
+                var line: String?
 
-        // When BACKGROUNDWORK is finished, Dismiss Dialog and Pass Datas to JSONParser
-        override fun onPostExecute(jsonData: String) {
-            super.onPostExecute(jsonData)
+                do {
+                    line = br.readLine()
 
-            pd.dismiss()
-            if (jsonData.startsWith("URL ERROR")) {
-                val error = jsonData
-                Toast.makeText(c, error, Toast.LENGTH_LONG).show()
-                Toast.makeText(
-                    c,
-                    "MOST PROBABLY THE APP CANNOT CONNECT DUE TO WRONG URL SINCE MALFORMEDURLEXCEPTION WAS RAISED",
-                    Toast.LENGTH_LONG
-                ).show()
+                    if (line == null) {
+                        break
+                    }
+                    jsonData.append(line + "\n")
 
-            } else if (jsonData.startsWith("CONNECT ERROR")) {
-                val error = jsonData
-                Toast.makeText(c, error, Toast.LENGTH_LONG).show()
-                Toast.makeText(
-                    c,
-                    "MOST PROBABLY THE APP CANNOT CONNECT TO ANY NETWORK SINCE IOEXCEPTION WAS RAISED",
-                    Toast.LENGTH_LONG
-                ).show()
+                } while (true)
+
+                // CLOSING RESOURCES
+                br.close()
+                `is`.close()
+
+                Log.i("pluto", "JSON DATA du Downloader = $jsonData")
+
+                // RETURN JSON
+                return jsonData.toString()
+
 
             } else {
-                // Ready to PARSE
+                return "Error" + con.responseMessage
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return "Error" + e.message
+        }
+
+
+    }
+
+    // SHOW DIALOG WHILE DOWNLOADING DATAS
+    override fun onPreExecute() {
+        super.onPreExecute()
+
+        pd = ProgressDialog(c)
+        pd.setTitle("Chargement des données")
+        pd.setMessage("réponse de la Grenouille... Please wait...")
+        pd.show()
+    }
+
+    // DOWNLOADING IN BACKGROUND
+    override fun doInBackground(vararg Voids: Void): String {
+        return download()
+    }
+
+    // When BACKGROUNDWORK is finished, Dismiss Dialog and Pass Datas to JSONParser
+    override fun onPostExecute(jsonData: String) {
+        super.onPostExecute(jsonData)
+
+        pd.dismiss()
+        if (jsonData.startsWith("URL ERROR")) {
+            val error = jsonData
+            Toast.makeText(c, error, Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                c,
+                "MOST PROBABLY THE APP CANNOT CONNECT DUE TO WRONG URL SINCE MALFORMEDURLEXCEPTION WAS RAISED",
+                Toast.LENGTH_LONG
+            ).show()
+
+        } else if (jsonData.startsWith("CONNECT ERROR")) {
+            val error = jsonData
+            Toast.makeText(c, error, Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                c,
+                "MOST PROBABLY THE APP CANNOT CONNECT TO ANY NETWORK SINCE IOEXCEPTION WAS RAISED",
+                Toast.LENGTH_LONG
+            ).show()
+
+        } else {
+            // Ready to PARSE
 
 //                Toast.makeText(
 //                    c,
@@ -155,8 +155,10 @@ import java.net.URL
 //                    Toast.LENGTH_LONG
 //                ).show()
 
-            }
-
-
         }
+
+
     }
+}
+
+

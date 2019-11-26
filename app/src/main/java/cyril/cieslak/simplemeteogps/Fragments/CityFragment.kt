@@ -73,16 +73,34 @@ class CityFragment : Fragment() {
                 var longgitude = itt
                 Log.i("bingo", "valeur Longgitude = $longgitude")
 
-                var testLat = 44.7926
-                var testLongi = 20.4749
+//                var testLat = 44.7926
+//                var testLongi = 20.4749
+//
+//                var jsonWeather =
+//                  "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
+//               // "http://api.openweathermap.org/data/2.5/forecast?lat=44.7914748&lon=20.4775094&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
+//                Log.i("pluto", "jsonWeather dasn CityFragment = $jsonWeather")
+//                // getTheNewLocation(jsonWeather)
+//
+//                getTheNewLocation(jsonWeather)
 
-                var jsonWeather =
-                  "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
-               // "http://api.openweathermap.org/data/2.5/forecast?lat=44.7914748&lon=20.4775094&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
-                Log.i("pluto", "jsonWeather dasn CityFragment = $jsonWeather")
-                // getTheNewLocation(jsonWeather)
+                viewModel.getStateJsonResult().observe(this, Observer { ittt : String ->
 
-                getTheNewLocation(jsonWeather)
+
+                    var jsonResultTextFromViewModel = ittt
+
+                    var datas = parseWeatherDatas(jsonResultTextFromViewModel).parseDatasFromApi(jsonResultTextFromViewModel)
+                    Log.i("bongo", " datas values dans fragment city : $datas")
+                    Log.i("pluto", "datas CityFragment = $datas")
+                    adapter = ItemCityFragmentAdapter(datas)
+
+                    val recyclerView = view?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView_fragmentCity)
+                    recyclerView?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+                    recyclerView?.adapter = this.adapter
+                    Log.i("pluto", "RecycylerView dasn CityFragment = $recyclerView")
+
+                })
+
             })
         })
 

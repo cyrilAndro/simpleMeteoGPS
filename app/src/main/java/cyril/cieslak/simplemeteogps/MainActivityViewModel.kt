@@ -36,4 +36,14 @@ class MainActivityViewModel : ViewModel() {
         stateLongitude.value = longitude
     }
 
+    // JSON RESULT TEXT
+
+    private val stateJsonResultText = MutableLiveData<String> ()
+
+    fun getStateJsonResult() : LiveData<String> = stateJsonResultText
+
+    fun entryJsonResult (jsonResultText : String) {
+        stateJsonResultText.value = jsonResultText
+    }
+
 }

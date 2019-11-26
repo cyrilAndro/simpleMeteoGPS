@@ -1,5 +1,6 @@
 package cyril.cieslak.simplemeteogps
 
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainActivityViewModel
 
 
+
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
     lateinit var locationCallback: LocationCallback
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity() {
        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         // On fait entrer viewModel dans le scope de l'activité
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
@@ -46,8 +50,17 @@ class MainActivity : AppCompatActivity() {
                 REQUEST_CODE
             )
         else {
+
             buildLocationRequest()
             buildLocationCallBack()
+
+//            var lattitude = "44.1245"//viewModel.getStateLatitude().value!!
+//            var lat = viewModel.getStateLatitude()
+//            var longgitude = "20.5663" //viewModel.getStateLongitude().value!!
+//            Log.i("dingo", "MainActivity : Value of lattituide= $lattitude , Value of $longgitude")
+
+            sendJsonResultToTheViewModel()
+
 
 
             // Create FusedProviderClient
@@ -59,68 +72,61 @@ class MainActivity : AppCompatActivity() {
                 Looper.myLooper()
             )
 
-//            // Set Event Click on Update Button
-//            button_update_coordinates.setOnClickListener(View.OnClickListener {
-//
-//                if (ActivityCompat.checkSelfPermission(
-//                        this@MainActivity,
-//                        android.Manifest.permission.ACCESS_FINE_LOCATION
-//                    ) != PackageManager.PERMISSION_GRANTED &&
-//                    ActivityCompat.checkSelfPermission(
-//                        this@MainActivity,
-//                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-//                    ) != PackageManager.PERMISSION_GRANTED
-//                ) {
-//                    ActivityCompat.requestPermissions(
-//                        this@MainActivity,
-//                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-//                        REQUEST_CODE
-//                    )
-//                    return@OnClickListener
-//                }
-//                fusedLocationProviderClient.requestLocationUpdates(
-//                    locationRequest,
-//                    locationCallback,
-//                    Looper.myLooper()
-//                )
-//
-//                Snackbar.make(it, "Mise à jour des données", Snackbar.LENGTH_SHORT).show()
-//
-//
-//            })
+
 
         }
 
 
-//        viewModel.getStateLatitude().observe(this, Observer {
-//
-//            var lattitude = it
-//            Log.i("bingo", "valeur Lattitude = $lattitude")
-//
-//            viewModel.getStateLongitude().observe(this, Observer { itt: String? ->
-//
-//                var longgitude = itt
-//                Log.i("bingo", "valeur Longgitude = $longgitude")
-//
-//                var jsonWeather =
-//                    "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
-//                Log.i("bingo", "la String = $jsonWeather")
-//                // getTheNewLocation(jsonWeather)
-//
-//                getTheNewLocation(jsonWeather)
-//            })
-//        })
+    }
+
+    private fun sendJsonResultToTheViewModel() {
+
+        viewModel.getStateLatitude().observe(this, Observer {
+
+            var lattitude = it
+
+            viewModel.getStateLongitude().observe(this, Observer { itt : String? ->
+
+                var longgitude = itt
+
+                Log.i("dingo", "MainActivity : Value of lattituide= $lattitude , Value of $longgitude")
+
+                var jsonWeather =
+                    "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
+//               // "http://api.openweathermap.org/data/2.5/forecast?lat=44.7914748&lon=20.4775094&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
+                Log.i("dingo", "jsonWeather dasn CityFragment = $jsonWeather")
+
+                var jsonResultText = JSONDownloader(this, jsonWeather).execute().get()
+                // getTheNewLocation(jsonWeather)
+                Log.i("dingo", "Value of JSONRESULTTEXT in MainActivity= $jsonWeather")
+
+                viewModel.entryJsonResult(jsonResultText)
+            })
+        })
+
+
+
 
     }
 
-
-    private fun getTheNewLocation(jsonWeather: String) {
-        var jsonResultText = JSONDownloader(this, jsonWeather).execute().get()
-        Log.i("bingo", " datas parsed : $jsonResultText")
-    }
+//    private fun sendValueOfJsonWeatherIntoTheViewModel(valueOfJsonWeather: String) {
+//        var jsonResultText = JSONDownloader(this, valueOfJsonWeather).execute().get()
+//        // getTheNewLocation(jsonWeather)
+//        Log.i("pluto", "Value of JSONRESULTTEXT in MainActivity= $valueOfJsonWeather")
+//
+//        viewModel.entryJsonResult(jsonResultText)
+//    }
+//
+//
+//    private fun getTheNewLocation(jsonWeather: String) {
+//        var jsonResultText = JSONDownloader(this, jsonWeather).execute().get()
+//        Log.i("bingo", " datas parsed : $jsonResultText")
+//    }
 
     private fun buildLocationCallBack() {
         locationCallback = object : LocationCallback() {
+
+
 
             override fun onLocationResult(p0: LocationResult?) {
                 var location = p0!!.locations.get(p0!!.locations.size - 1)
@@ -133,9 +139,12 @@ class MainActivity : AppCompatActivity() {
                 viewModel.entryLatitude(latt)
                 viewModel.entryLongitude((longi))
 
+
             }
 
         }
+
+
 
     }
 

@@ -3,8 +3,6 @@ package cyril.cieslak.simplemeteogps
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class MainActivityViewModel : ViewModel() {
 
@@ -38,12 +36,12 @@ class MainActivityViewModel : ViewModel() {
 
     // JSON RESULT TEXT
 
-    private val stateJsonResultText = MutableLiveData<String> ()
+    private val stateDatasAfterParsing = MutableLiveData<MutableList<MutableList<Weather>>> ()
 
-    fun getStateJsonResult() : LiveData<String> = stateJsonResultText
+    fun getStateDatasAfterParsing() : LiveData<MutableList<MutableList<Weather>>> = stateDatasAfterParsing
 
-    fun entryJsonResult (jsonResultText : String) {
-        stateJsonResultText.value = jsonResultText
+    fun entryDatasAfterParsing (datas : MutableList<MutableList<Weather>>) {
+        stateDatasAfterParsing.value = datas
     }
 
 }

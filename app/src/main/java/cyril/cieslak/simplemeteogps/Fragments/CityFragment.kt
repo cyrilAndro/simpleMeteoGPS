@@ -1,7 +1,5 @@
 package cyril.cieslak.simplemeteogps.Fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -57,21 +55,21 @@ class CityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-      //  getTheNewLocation(jsonWeatherTest)
+
 
         // On fait entrer viewModel dans le scope de l'activité
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
-
-        viewModel.getStateLatitude().observe(this, Observer {
-
-            var lattitude = it
-            Log.i("bingo", "valeur Lattitude = $lattitude")
-
-
-            viewModel.getStateLongitude().observe(this, Observer { itt: String? ->
-
-                var longgitude = itt
-                Log.i("bingo", "valeur Longgitude = $longgitude")
+//
+//        viewModel.getStateLatitude().observe(this, Observer {
+//
+//            var lattitude = it
+//            Log.i("bingo", "valeur Lattitude = $lattitude")
+//
+//
+//            viewModel.getStateLongitude().observe(this, Observer { itt: String? ->
+//
+//                var longgitude = itt
+//                Log.i("bingo", "valeur Longgitude = $longgitude")
 
 //                var testLat = 44.7926
 //                var testLongi = 20.4749
@@ -84,14 +82,14 @@ class CityFragment : Fragment() {
 //
 //                getTheNewLocation(jsonWeather)
 
-                viewModel.getStateJsonResult().observe(this, Observer { ittt : String ->
+                viewModel.getStateDatasAfterParsing().observe(this, Observer { ittt : MutableList<MutableList<Weather>> ->
 
 
-                    var jsonResultTextFromViewModel = ittt
+                    var datas = ittt
 
-                    var datas = parseWeatherDatas(jsonResultTextFromViewModel).parseDatasFromApi(jsonResultTextFromViewModel)
-                    Log.i("bongo", " datas values dans fragment city : $datas")
-                    Log.i("pluto", "datas CityFragment = $datas")
+//                    var datas = parseWeatherDatas(jsonResultTextFromViewModel).parseDatasFromApi(jsonResultTextFromViewModel)
+//                    Log.i("bongo", " datas values dans fragment city : $datas")
+//                    Log.i("pluto", "datas CityFragment = $datas")
                     adapter = ItemCityFragmentAdapter(datas)
 
                     val recyclerView = view?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView_fragmentCity)
@@ -101,8 +99,8 @@ class CityFragment : Fragment() {
 
                 })
 
-            })
-        })
+//            })
+//        })
 
 
 

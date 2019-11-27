@@ -1,26 +1,24 @@
 package cyril.cieslak.simplemeteogps
 
-import android.content.Context
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.*
-import com.google.android.material.snackbar.Snackbar
 import cyril.cieslak.simplemeteogps.Downloader.JSONDownloader
+import cyril.cieslak.simplemeteogps.Parsers.parseWeatherDatas
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_city.*
+import org.json.JSONArray
+
+
 
 class MainActivity : AppCompatActivity() {
 
     // Creation du lateInit viewModel de type LoginViewModel
     lateinit var viewModel: MainActivityViewModel
-
 
 
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -29,10 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     val REQUEST_CODE = 1000
 
-       override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
 
         // On fait entrer viewModel dans le scope de l'activité
@@ -54,12 +51,10 @@ class MainActivity : AppCompatActivity() {
             buildLocationRequest()
             buildLocationCallBack()
 
-//            var lattitude = "44.1245"//viewModel.getStateLatitude().value!!
-//            var lat = viewModel.getStateLatitude()
-//            var longgitude = "20.5663" //viewModel.getStateLongitude().value!!
-//            Log.i("dingo", "MainActivity : Value of lattituide= $lattitude , Value of $longgitude")
 
             sendJsonResultToTheViewModel()
+
+
 
 
 
@@ -72,9 +67,29 @@ class MainActivity : AppCompatActivity() {
                 Looper.myLooper()
             )
 
+           // makeJsonAnArrayList()
 
 
         }
+
+
+    }
+
+    private fun makeJsonAnArrayList() {
+
+        viewModel.getStateDatasAfterParsing().observe(this, Observer {
+
+            val jsonObject = it
+
+            val listdata = ArrayList<String>()
+            val jArray = jsonObject as JSONArray
+            if (jArray != null) {
+                for (i in 0 until jArray.length()) {
+                    listdata.add(jArray.getString(i))
+                }
+            }
+
+        })
 
 
     }
@@ -85,11 +100,14 @@ class MainActivity : AppCompatActivity() {
 
             var lattitude = it
 
-            viewModel.getStateLongitude().observe(this, Observer { itt : String? ->
+            viewModel.getStateLongitude().observe(this, Observer { itt: String? ->
 
                 var longgitude = itt
 
-                Log.i("dingo", "MainActivity : Value of lattituide= $lattitude , Value of $longgitude")
+                Log.i(
+                    "dingo",
+                    "MainActivity : Value of lattituide= $lattitude , Value of $longgitude"
+                )
 
                 var jsonWeather =
                     "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
@@ -100,11 +118,16 @@ class MainActivity : AppCompatActivity() {
                 // getTheNewLocation(jsonWeather)
                 Log.i("dingo", "Value of JSONRESULTTEXT in MainActivity= $jsonWeather")
 
-                viewModel.entryJsonResult(jsonResultText)
+                var datas  = parseWeatherDatas(jsonResultText).parseDatasFromApi(jsonResultText)
+                Log.i("bongo", " datas values dans fragment city : $datas")
+                Log.i("pluto", "datas CityFragment = $datas")
+
+
+                viewModel.entryDatasAfterParsing(datas)
+
+              //  makeJsonAnArrayList()
             })
         })
-
-
 
 
     }
@@ -114,7 +137,7 @@ class MainActivity : AppCompatActivity() {
 //        // getTheNewLocation(jsonWeather)
 //        Log.i("pluto", "Value of JSONRESULTTEXT in MainActivity= $valueOfJsonWeather")
 //
-//        viewModel.entryJsonResult(jsonResultText)
+//        viewModel.entryDatasAfterParsing(jsonResultText)
 //    }
 //
 //
@@ -125,7 +148,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun buildLocationCallBack() {
         locationCallback = object : LocationCallback() {
-
 
 
             override fun onLocationResult(p0: LocationResult?) {
@@ -143,7 +165,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
 
 
     }

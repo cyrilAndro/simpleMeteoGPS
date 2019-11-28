@@ -34,7 +34,7 @@ class MainActivityViewModel : ViewModel() {
         stateLongitude.value = longitude
     }
 
-    // JSON RESULT TEXT
+    // DATAS AFTER PARSING
 
     private val stateDatasAfterParsing = MutableLiveData<MutableList<MutableList<Weather>>> ()
 

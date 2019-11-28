@@ -18,7 +18,7 @@ import cyril.cieslak.simplemeteogps.Weather
 
 class CityFragment : Fragment() {
 
-    lateinit var viewModel : MainActivityViewModel
+    lateinit var viewModel: MainActivityViewModel
 
     var datas = mutableListOf(
         mutableListOf<Weather>(
@@ -43,7 +43,8 @@ class CityFragment : Fragment() {
 
     var adapter = ItemCityFragmentAdapter(datas)
 
-    var jsonWeatherTest =  "http://api.openweathermap.org/data/2.5/forecast?lat=48.852968&lon=-2.3499019&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
+    var jsonWeatherTest =
+        "http://api.openweathermap.org/data/2.5/forecast?lat=48.852968&lon=-2.3499019&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,71 +57,28 @@ class CityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-
         // On fait entrer viewModel dans le scope de l'activité
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
-//
-//        viewModel.getStateLatitude().observe(this, Observer {
-//
-//            var lattitude = it
-//            Log.i("bingo", "valeur Lattitude = $lattitude")
-//
-//
-//            viewModel.getStateLongitude().observe(this, Observer { itt: String? ->
-//
-//                var longgitude = itt
-//                Log.i("bingo", "valeur Longgitude = $longgitude")
-
-//                var testLat = 44.7926
-//                var testLongi = 20.4749
-//
-//                var jsonWeather =
-//                  "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
-//               // "http://api.openweathermap.org/data/2.5/forecast?lat=44.7914748&lon=20.4775094&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
-//                Log.i("pluto", "jsonWeather dasn CityFragment = $jsonWeather")
-//                // getTheNewLocation(jsonWeather)
-//
-//                getTheNewLocation(jsonWeather)
-
-                viewModel.getStateDatasAfterParsing().observe(this, Observer { ittt : MutableList<MutableList<Weather>> ->
 
 
-                    var datas = ittt
-
-//                    var datas = parseWeatherDatas(jsonResultTextFromViewModel).parseDatasFromApi(jsonResultTextFromViewModel)
-//                    Log.i("bongo", " datas values dans fragment city : $datas")
-//                    Log.i("pluto", "datas CityFragment = $datas")
-                    adapter = ItemCityFragmentAdapter(datas)
-
-                    val recyclerView = view?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView_fragmentCity)
-                    recyclerView?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
-                    recyclerView?.adapter = this.adapter
-                    Log.i("pluto", "RecycylerView dasn CityFragment = $recyclerView")
-
-                })
-
-//            })
-//        })
+        viewModel.getStateDatasAfterParsing()
+            .observe(this, Observer { ittt: MutableList<MutableList<Weather>> ->
 
 
+                var datas = ittt
+
+                adapter = ItemCityFragmentAdapter(datas)
+
+                val recyclerView =
+                    view?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView_fragmentCity)
+                recyclerView?.layoutManager =
+                    androidx.recyclerview.widget.LinearLayoutManager(context)
+                recyclerView?.adapter = this.adapter
+                Log.i("pluto", "RecycylerView dasn CityFragment = $recyclerView")
+
+            })
 
 
-    }
-
-    private fun getTheNewLocation(jsonWeather: String) {
-        var jsonDataPreview = JSONDownloader(context!!, jsonWeather).execute().get()
-        Log.i("bongo", " bingo dans fragment city : $jsonDataPreview")
-        Log.i("pluto", "jsonDataPreview dasn CityFragment = $jsonDataPreview")
-
-       var datas = parseWeatherDatas(jsonDataPreview).parseDatasFromApi(jsonDataPreview)
-        Log.i("bongo", " datas values dans fragment city : $datas")
-        Log.i("pluto", "datas CityFragment = $datas")
-        adapter = ItemCityFragmentAdapter(datas)
-
-        val recyclerView = view?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView_fragmentCity)
-        recyclerView?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
-        recyclerView?.adapter = this.adapter
-        Log.i("pluto", "RecycylerView dasn CityFragment = $recyclerView")
     }
 
 

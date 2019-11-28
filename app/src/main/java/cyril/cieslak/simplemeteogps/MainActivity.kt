@@ -17,7 +17,7 @@ import org.json.JSONArray
 
 class MainActivity : AppCompatActivity() {
 
-    // Creation du lateInit viewModel de type LoginViewModel
+
     lateinit var viewModel: MainActivityViewModel
 
 
@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity() {
                 Looper.myLooper()
             )
 
-           // makeJsonAnArrayList()
 
 
         }
@@ -74,24 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun makeJsonAnArrayList() {
-
-        viewModel.getStateDatasAfterParsing().observe(this, Observer {
-
-            val jsonObject = it
-
-            val listdata = ArrayList<String>()
-            val jArray = jsonObject as JSONArray
-            if (jArray != null) {
-                for (i in 0 until jArray.length()) {
-                    listdata.add(jArray.getString(i))
-                }
-            }
-
-        })
-
-
-    }
 
     private fun sendJsonResultToTheViewModel() {
 
@@ -124,26 +105,13 @@ class MainActivity : AppCompatActivity() {
 
                 viewModel.entryDatasAfterParsing(datas)
 
-              //  makeJsonAnArrayList()
+
             })
         })
 
 
     }
 
-//    private fun sendValueOfJsonWeatherIntoTheViewModel(valueOfJsonWeather: String) {
-//        var jsonResultText = JSONDownloader(this, valueOfJsonWeather).execute().get()
-//        // getTheNewLocation(jsonWeather)
-//        Log.i("pluto", "Value of JSONRESULTTEXT in MainActivity= $valueOfJsonWeather")
-//
-//        viewModel.entryDatasAfterParsing(jsonResultText)
-//    }
-//
-//
-//    private fun getTheNewLocation(jsonWeather: String) {
-//        var jsonResultText = JSONDownloader(this, jsonWeather).execute().get()
-//        Log.i("bingo", " datas parsed : $jsonResultText")
-//    }
 
     private fun buildLocationCallBack() {
         locationCallback = object : LocationCallback() {

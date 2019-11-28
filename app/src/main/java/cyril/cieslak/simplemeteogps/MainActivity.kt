@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
             // Create FusedProviderClient
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 

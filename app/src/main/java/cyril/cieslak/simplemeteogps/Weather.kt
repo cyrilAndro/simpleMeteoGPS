@@ -6,7 +6,7 @@ class Weather (){
     var country: String? = null
     var temperature: String? = null
     var speed: String? = null
-    var icon_weather: String? = null
+    var iconWeather: String? = null
     var timestamp: String? = null
     var humidity: String? = null
 

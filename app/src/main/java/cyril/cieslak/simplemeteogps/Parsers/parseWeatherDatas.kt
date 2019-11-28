@@ -120,7 +120,7 @@ class parseWeatherDatas (jsonDataPreview : String) : AsyncTask<String, Void, Mut
                 weather.country = country
                 weather.temperature = temperature
                 weather.speed = speed
-                weather.icon_weather = icon_weather
+                weather.iconWeather = icon_weather
                 weather.timestamp = timestamp
                 weather.humidity = humidity
 

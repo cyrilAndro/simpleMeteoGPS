@@ -31,4 +31,12 @@
     <string name="date_two">date_two</string>
     <string name="date_one">date_one</string>
     <string name="date_zero">date_zero</string>
+    <string name="icon_seven">icon_Seven</string>
+    <string name="icon_six">icon_six</string>
+    <string name="icon_five">icon_five</string>
+    <string name="icon_four">icon_four</string>
+    <string name="icon_three">icon_three</string>
+    <string name="icon_two">icon_two</string>
+    <string name="icon_one">icon_one</string>
+    <string name="icon_zero">icon_zero</string>
 </resources>

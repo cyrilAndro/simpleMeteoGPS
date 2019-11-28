@@ -99,6 +99,7 @@
             android:id="@+id/windLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:orientation="vertical"
             >
 
@@ -156,6 +157,7 @@
                 android:id="@+id/dateLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:orientation="vertical"
                 >
 
@@ -206,6 +208,64 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/date_seven" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/iconLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/iconZero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_zero" />
+
+                <TextView
+                    android:id="@+id/iconOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_one" />
+
+                <TextView
+                    android:id="@+id/iconTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_two" />
+
+                <TextView
+                    android:id="@+id/iconThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_three" />
+
+                <TextView
+                    android:id="@+id/iconFour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_four" />
+
+                <TextView
+                    android:id="@+id/iconFive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_five" />
+
+                <TextView
+                    android:id="@+id/iconSix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_six" />
+
+                <TextView
+                    android:id="@+id/iconSeven"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_seven" />
 
             </LinearLayout>
 

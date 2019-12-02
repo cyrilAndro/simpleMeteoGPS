@@ -67,16 +67,16 @@ class parseWeatherDatas (jsonDataPreview : String) : AsyncTask<String, Void, Mut
             // Get TimeStamp and Temperature
 
             // ---- Get The Date of the Day to compare wit other dates in Json ---- //
-
-            var uniqueDate = jaList.getJSONObject(0)
-            Log.i("banga8", "uniqueDate : $uniqueDate")
-            var laDateUnique = uniqueDate.getString("dt_txt")
-            Log.i("banga8", "LaDateUnique : $laDateUnique")
-
-            // Transformation DateUnique into an Int
-            var firstTenCharacters = laDateUnique.take(FIRST_TEN)
-            var daysOfTheTimestampNotFormated = firstTenCharacters.takeLast(TWO)
-            var dateUnique = daysOfTheTimestampNotFormated.toInt()
+//
+//            var uniqueDate = jaList.getJSONObject(0)
+//            Log.i("banga8", "uniqueDate : $uniqueDate")
+//            var laDateUnique = uniqueDate.getString("dt_txt")
+//            Log.i("banga8", "LaDateUnique : $laDateUnique")
+//
+//            // Transformation DateUnique into an Int
+//            var firstTenCharacters = laDateUnique.take(FIRST_TEN)
+//            var daysOfTheTimestampNotFormated = firstTenCharacters.takeLast(TWO)
+//            var dateUnique = daysOfTheTimestampNotFormated.toInt()
 
 
 
@@ -90,8 +90,8 @@ class parseWeatherDatas (jsonDataPreview : String) : AsyncTask<String, Void, Mut
                 val timestampNotFormated = joTimestamp.getString("dt_txt")
                 Log.i("banga8", "timestampNotFormated : $timestampNotFormated")
 
-                val timestamp = getTheCorrectDateFormat(timestampNotFormated, dateUnique)
-
+              //  val timestamp = getTheCorrectDateFormat(timestampNotFormated, dateUnique)
+            val timestamp = timestampNotFormated
                 //       val timestamp = joTimestamp.getString("dt_txt")
 
                 //        val timestamp = Weather().setRealDateTime(jjtimestamp)

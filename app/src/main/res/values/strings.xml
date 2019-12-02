@@ -39,4 +39,12 @@
     <string name="icon_two">icon_two</string>
     <string name="icon_one">icon_one</string>
     <string name="icon_zero">icon_zero</string>
+    <string name="indexseven">indexSeven</string>
+    <string name="indexsix">indexSix</string>
+    <string name="indexfive">indexFive</string>
+    <string name="indexFour">indexFour</string>
+    <string name="indexthree">indexThree</string>
+    <string name="indextwo">indexTwo</string>
+    <string name="indexone">indexOne</string>
+    <string name="indexzero">indexZero</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.*
+import cyril.cieslak.Utils.CompareDates
 import cyril.cieslak.simplemeteogps.Downloader.JSONDownloader
 import cyril.cieslak.simplemeteogps.Parsers.parseWeatherDatas
 import kotlinx.android.synthetic.main.activity_main.*

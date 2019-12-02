@@ -38,6 +38,63 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <LinearLayout
+                android:id="@+id/indexLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/indexForZero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/indexzero" />
+
+                <TextView
+                    android:id="@+id/indexForOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/indexone" />
+
+                <TextView
+                    android:id="@+id/indexForTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/indextwo" />
+
+                <TextView
+                    android:id="@+id/indexForThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/indexthree" />
+
+                <TextView
+                    android:id="@+id/indexForFour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/indexFour" />
+
+                <TextView
+                    android:id="@+id/indexForFive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/indexfive" />
+
+                <TextView
+                    android:id="@+id/indexForSix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/indexsix" />
+
+                <TextView
+                    android:id="@+id/indexForSeven"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/indexseven" />
+
+            </LinearLayout>
+
         <LinearLayout
             android:id="@+id/tempLinearLayout"
             android:layout_width="wrap_content"

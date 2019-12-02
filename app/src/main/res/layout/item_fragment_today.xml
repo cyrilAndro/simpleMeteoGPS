@@ -22,49 +22,49 @@
                 >
 
                 <TextView
-                    android:id="@+id/tempZero"
+                    android:id="@+id/temp0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_zero" />
 
                 <TextView
-                    android:id="@+id/tempOne"
+                    android:id="@+id/temp1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_one" />
 
                 <TextView
-                    android:id="@+id/tempTwo"
+                    android:id="@+id/temp2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_two" />
 
                 <TextView
-                    android:id="@+id/tempThree"
+                    android:id="@+id/temp3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_three" />
 
                 <TextView
-                    android:id="@+id/tempFour"
+                    android:id="@+id/temp4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_four" />
 
                 <TextView
-                    android:id="@+id/tempFive"
+                    android:id="@+id/temp5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_five" />
 
                 <TextView
-                    android:id="@+id/tempSix"
+                    android:id="@+id/temp6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_six" />
 
                 <TextView
-                    android:id="@+id/tempSeven"
+                    android:id="@+id/temp7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_seven" />

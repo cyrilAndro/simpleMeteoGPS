@@ -58,6 +58,14 @@ class TodayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+//        var lindexZero = view.findViewById<TextView>(R.id.indexForZero)
+//        var lindexOne = view.findViewById<TextView>(R.id.indexForOne)
+//        var lindexTwo = view.findViewById<TextView>(R.id.indexForTwo)
+//        var lindexThree = view.findViewById<TextView>(R.id.indexForThree)
+//        var lindexFour = view.findViewById<TextView>(R.id.indexForFour)
+//        var lindexFive = view.findViewById<TextView>(R.id.indexForFive)
+//        var lindexSix = view.findViewById<TextView>(R.id.indexForSix)
+//        var lindexSeven = view.findViewById<TextView>(R.id.indexForSeven)
 
 
         var temp0 = view.findViewById<TextView>(R.id.tempZero)

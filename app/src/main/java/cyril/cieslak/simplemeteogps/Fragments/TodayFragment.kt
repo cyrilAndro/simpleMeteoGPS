@@ -6,29 +6,47 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cyril.cieslak.Utils.CompareDates
+import cyril.cieslak.Utils.afterParsingOrganizingDatas
+// import cyril.cieslak.simplemeteogps.Adapters.ItemTodayFragmentAdapter
 import cyril.cieslak.simplemeteogps.MainActivityViewModel
 
 import cyril.cieslak.simplemeteogps.R
 import cyril.cieslak.simplemeteogps.Weather
+import kotlinx.android.synthetic.main.item_fragment_today.*
 
 
 class TodayFragment : Fragment() {
 
     lateinit var viewModel: MainActivityViewModel
 
-    val MIDNIGHT = "00:00:00" as CharSequence
-    val THREEAM = "03:00:00"
-    val SIXAM = "06:00:00"
-    val NINEAM = "09:00:00"
-    val NOON = "12:00:00"
-    val THREEPM = "15:00:00"
-    val SIXPM = "18:00:00"
-    val NINEPM = "21:00:00"
+    var datas = mutableListOf(
+        mutableListOf<Weather>(
+            Weather()
+//            "un",
+//            "deux",
+//            "trois",
+//            "quatre",
+//            "cinq",
+//            "six",
+//            "sept",
+//            "huit",
+//            "neuf",
+//            "dix",
+//            "onze",
+//            "douze",
+//            "treize",
+//            "quatorze",
+//            "quinze"
+        )
+    )
 
+
+    // var adapter = ItemTodayFragmentAdapter(datas)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,14 +58,14 @@ class TodayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        var lindexZero = view.findViewById<TextView>(R.id.indexForZero)
-        var lindexOne = view.findViewById<TextView>(R.id.indexForOne)
-        var lindexTwo = view.findViewById<TextView>(R.id.indexForTwo)
-        var lindexThree = view.findViewById<TextView>(R.id.indexForThree)
-        var lindexFour = view.findViewById<TextView>(R.id.indexForFour)
-        var lindexFive = view.findViewById<TextView>(R.id.indexForFive)
-        var lindexSix = view.findViewById<TextView>(R.id.indexForSix)
-        var lindexSeven = view.findViewById<TextView>(R.id.indexForSeven)
+//        var lindexZero = view.findViewById<TextView>(R.id.indexForZero)
+//        var lindexOne = view.findViewById<TextView>(R.id.indexForOne)
+//        var lindexTwo = view.findViewById<TextView>(R.id.indexForTwo)
+//        var lindexThree = view.findViewById<TextView>(R.id.indexForThree)
+//        var lindexFour = view.findViewById<TextView>(R.id.indexForFour)
+//        var lindexFive = view.findViewById<TextView>(R.id.indexForFive)
+//        var lindexSix = view.findViewById<TextView>(R.id.indexForSix)
+//        var lindexSeven = view.findViewById<TextView>(R.id.indexForSeven)
 
 
         var temp0 = view.findViewById<TextView>(R.id.tempZero)
@@ -87,6 +105,16 @@ class TodayFragment : Fragment() {
         var licon6 = view.findViewById<TextView>(R.id.iconSix)
         var licon7 = view.findViewById<TextView>(R.id.iconSeven)
 
+        var iconTop0 = view.findViewById<ImageView>(R.id.icon_weather_zero)
+        var iconTop1 = view.findViewById<ImageView>(R.id.icon_weather_one)
+        var iconTop2 = view.findViewById<ImageView>(R.id.icon_weather_two)
+        var iconTop3 = view.findViewById<ImageView>(R.id.icon_weather_three)
+        var iconTop4 = view.findViewById<ImageView>(R.id.icon_weather_four)
+        var iconTop5 = view.findViewById<ImageView>(R.id.icon_weather_five)
+        var iconTop6 = view.findViewById<ImageView>(R.id.icon_weather_six)
+        var iconTop7 = view.findViewById<ImageView>(R.id.icon_weather_seven)
+
+
         // On fait entrer viewModel dans le scope de l'activité
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
 
@@ -100,339 +128,407 @@ class TodayFragment : Fragment() {
                 var leToday = CompareDates().todayDateFormatted()
                 Log.i("today", "value of today : $leToday")
 
-                var zeroDate = datas[0][0].timestamp
-                var firstDate = datas[1][0].timestamp
-                var secondDate = datas[2][0].timestamp
-                var thirdDate = datas[3][0].timestamp
-                var fourthDate = datas[4][0].timestamp
-                var fifthDate = datas[5][0].timestamp
-                var sixthDate = datas[6][0].timestamp
-                var seventhDate = datas[7][0].timestamp
+                afterParsingOrganizingDatas(view, datas, leToday).establishIndex()
+
+                afterParsingOrganizingDatas(view, datas, leToday).associatingDatas(
+                    view, datas,
+
+                    temp0, temp1, temp2, temp3, temp4, temp5, temp6, temp7,
+                    wind0, wind1, wind2, wind3, wind4, wind5, wind6, wind7,
+                    date0, date1, date2, date3, date4, date5, date6, date7,
+                    licon0, licon1, licon2, licon3, licon4, licon5, licon6, licon7,
+                    iconTop0, iconTop1, iconTop2, iconTop3, iconTop4, iconTop5, iconTop6, iconTop7
 
 
-                var indexMIDNIGHT = "$leToday $MIDNIGHT"
-                var indexTHREEAM = "$leToday $THREEAM"
-                var indexSIXAM = "$leToday $SIXAM"
-                var indexNINEAM = "$leToday $NINEAM"
-                var indexNOON = "$leToday $NOON"
-                var indexTHREEPM = "$leToday $THREEPM"
-                var indexSIXPM = "$leToday $SIXPM"
-                var indexNINEPM = "$leToday $NINEPM"
-
-
-                var lindexAtZero = indexMIDNIGHT
-                var lindexAtOne = indexTHREEAM
-                var lindexAtTwo = indexSIXAM
-                var lindexAtThree = indexNINEAM
-                var lindexAtFour = indexNOON
-                var lindexAtFive = indexTHREEPM
-                var lindexAtSix = indexSIXPM
-                var lindexAtSeven = indexNINEPM
-
-
-                Log.i(
-                    "today",
-                    "value of Index zero : $indexMIDNIGHT , value of Index one : $indexTHREEAM"
                 )
 
+//                val MIDNIGHT = "00:00:00" as CharSequence
+//                val THREEAM = "03:00:00"
+//                val SIXAM = "06:00:00"
+//                val NINEAM = "09:00:00"
+//                val NOON = "12:00:00"
+//                val THREEPM = "15:00:00"
+//                val SIXPM = "18:00:00"
+//                val NINEPM = "21:00:00"
+//
+//                var zeroDate = datas[0][0].timestamp
+//                var firstDate = datas[1][0].timestamp
+//                var secondDate = datas[2][0].timestamp
+//                var thirdDate = datas[3][0].timestamp
+//                var fourthDate = datas[4][0].timestamp
+//                var fifthDate = datas[5][0].timestamp
+//                var sixthDate = datas[6][0].timestamp
+//                var seventhDate = datas[7][0].timestamp
+//
+//
+//                var indexMIDNIGHT = "$leToday $MIDNIGHT"
+//                var indexTHREEAM = "$leToday $THREEAM"
+//                var indexSIXAM = "$leToday $SIXAM"
+//                var indexNINEAM = "$leToday $NINEAM"
+//                var indexNOON = "$leToday $NOON"
+//                var indexTHREEPM = "$leToday $THREEPM"
+//                var indexSIXPM = "$leToday $SIXPM"
+//                var indexNINEPM = "$leToday $NINEPM"
+//
+//
+//                var lindexAtZero = indexMIDNIGHT
+//                var lindexAtOne = indexTHREEAM
+//                var lindexAtTwo = indexSIXAM
+//                var lindexAtThree = indexNINEAM
+//                var lindexAtFour = indexNOON
+//                var lindexAtFive = indexTHREEPM
+//                var lindexAtSix = indexSIXPM
+//                var lindexAtSeven = indexNINEPM
+//
+//
+//                Log.i(
+//                    "today",
+//                    "value of Index zero : $indexMIDNIGHT , value of Index one : $indexTHREEAM"
+//                )
+//
+//
+//                lindexZero.text = lindexAtZero
+//                lindexOne.text = lindexAtOne
+//                lindexTwo.text = lindexAtTwo
+//                lindexThree.text = lindexAtThree
+//                lindexFour.text = lindexAtFour
+//                lindexFive.text = lindexAtFive
+//                lindexSix.text = lindexAtSix
+//                lindexSeven.text = lindexAtSeven
+//
+//
+//
+//
+//                fun setToPrint(indexNumber: Int, varAtZero: Int) {
+//
+//                    var nextTemp: TextView
+//                    var nextWind: TextView
+//                    var nextDate: TextView
+//                    var nextIcon: TextView
+//                    var nextIconTop : ImageView
+//
+//                    when (indexNumber) {
+//
+//                        0 -> {
+//                            nextTemp = temp0
+//                            nextWind = wind0
+//                            nextDate = date0
+//                            nextIcon = licon0
+//                            nextIconTop = iconTop0
+//                        }
+//
+//                        1 -> {
+//                            nextTemp = temp1
+//                            nextWind = wind1
+//                            nextDate = date1
+//                            nextIcon = licon1
+//                            nextIconTop = iconTop1
+//                        }
+//
+//                        2 -> {
+//                            nextTemp = temp2
+//                            nextWind = wind2
+//                            nextDate = date2
+//                            nextIcon = licon2
+//                            nextIconTop = iconTop2
+//                        }
+//
+//                        3 -> {
+//                            nextTemp = temp3
+//                            nextWind = wind3
+//                            nextDate = date3
+//                            nextIcon = licon3
+//                            nextIconTop = iconTop3
+//
+//                        }
+//                        4 -> {
+//
+//                            nextTemp = temp4
+//                            nextWind = wind4
+//                            nextDate = date4
+//                            nextIcon = licon4
+//                            nextIconTop = iconTop4
+//                        }
+//                        5 -> {
+//                            nextTemp = temp5
+//                            nextWind = wind5
+//                            nextDate = date5
+//                            nextIcon = licon5
+//                            nextIconTop = iconTop5
+//                        }
+//                        6 -> {
+//                            nextTemp = temp6
+//                            nextWind = wind6
+//                            nextDate = date6
+//                            nextIcon = licon6
+//                            nextIconTop = iconTop6
+//                        }
+//                        7 -> {
+//                            nextTemp = temp7
+//                            nextWind = wind7
+//                            nextDate = date7
+//                            nextIcon = licon7
+//                            nextIconTop = iconTop7
+//                        }
+//
+//                        else -> {
+//
+//                            nextTemp = temp1
+//                            nextWind = wind1
+//                            nextDate = date1
+//                            nextIcon = licon1
+//                            nextIconTop = iconTop1
+//                        }
+//                    }
+//
+//                    nextTemp.text = datas[varAtZero][0].temperature
+//                    nextWind.text = datas[varAtZero][0].speed
+//                    nextDate.text = datas[varAtZero][0].timestamp
+//                    nextIcon.text = datas[varAtZero][0].iconWeather
+//
+//                    var whichIcon = datas[varAtZero][0].iconWeather
+//
+//
+//
+//
+//                    when (whichIcon) {
+//            //Sunny
+//            "01d" -> nextIconTop.setImageResource(R.drawable.ic_icons8_summer)
+//            // Sun Night
+//            "01n" -> nextIconTop.setImageResource(R.drawable.ic_icons8_night)
+//            // Partially cloudy
+//            "02n", "02d", "03n", "03d" -> nextIconTop.setImageResource(R.drawable.partly_cloudly)
+//            // Mostly Cloudly
+//            "04d", "04n" -> nextIconTop.setImageResource(R.drawable.mostly_cloudy)
+//            // Fog
+//            "50d", "50n" -> nextIconTop.setImageResource(R.drawable.ic_icons8_fog)
+//            //Snow
+//            "13d", "13n" -> nextIconTop.setImageResource(R.drawable.ic_icons8_winter)
+//            // Moderate Rain
+//            "10d", "10n" -> nextIconTop.setImageResource(R.drawable.ic_icons8_moderate_rain)
+//            // Rain
+//            "09d", "09n" -> nextIconTop.setImageResource(R.drawable.ic_icons8_rainy_weather)
+//            // Storm
+//            "11d", "11n" -> nextIconTop.setImageResource(R.drawable.ic_icons8_storm)
+//
+//            else -> nextIconTop.setImageResource(R.drawable.launcher_weather_adobe)
+//            //downLoadPicassoIcon(pictureToDownload)
+//        }
+//
+//                }
+//
+//                fun setToPrintError(indexNumber: Int) {
+//
+//                    var nextTemp: TextView
+//                    var nextWind: TextView
+//                    var nextDate: TextView
+//                    var nextIcon: TextView
+//
+//                    when (indexNumber) {
+//
+//                        0 -> {
+//                            nextTemp = temp0
+//                            nextWind = wind0
+//                            nextDate = date0
+//                            nextIcon = licon0
+//                        }
+//
+//                        1 -> {
+//                            nextTemp = temp1
+//                            nextWind = wind1
+//                            nextDate = date1
+//                            nextIcon = licon1
+//
+//                        }
+//
+//                        2 -> {
+//                            nextTemp = temp2
+//                            nextWind = wind2
+//                            nextDate = date2
+//                            nextIcon = licon2
+//
+//                        }
+//
+//                        3 -> {
+//                            nextTemp = temp3
+//                            nextWind = wind3
+//                            nextDate = date3
+//                            nextIcon = licon3
+//
+//                        }
+//                        4 -> {
+//
+//                            nextTemp = temp4
+//                            nextWind = wind4
+//                            nextDate = date4
+//                            nextIcon = licon4
+//
+//                        }
+//                        5 -> {
+//                            nextTemp = temp5
+//                            nextWind = wind5
+//                            nextDate = date5
+//                            nextIcon = licon5
+//                        }
+//                        6 -> {
+//                            nextTemp = temp6
+//                            nextWind = wind6
+//                            nextDate = date6
+//                            nextIcon = licon6
+//
+//                        }
+//                        7 -> {
+//                            nextTemp = temp7
+//                            nextWind = wind7
+//                            nextDate = date7
+//                            nextIcon = licon7
+//
+//                        }
+//
+//                        else -> {
+//
+//                            nextTemp = temp1
+//                            nextWind = wind1
+//                            nextDate = date1
+//                            nextIcon = licon1
+//
+//                        }
+//                    }
+//
+//
+//
+//                    nextTemp.text = "No Temp"
+//                    nextWind.text = "No Wind"
+//                    nextDate.text = "No time"
+//                    nextIcon.text = "No Icon"
+//                }
+//
+//
+//                when (lindexAtZero) {
+//
+//                    zeroDate -> setToPrint(0, 0)
+//                    firstDate -> setToPrint(0, 1)
+//                    secondDate -> setToPrint(0, 2)
+//                    thirdDate -> setToPrint(0, 3)
+//                    fourthDate -> setToPrint(0, 4)
+//                    fifthDate -> setToPrint(0, 5)
+//                    sixthDate -> setToPrint(0, 6)
+//                    seventhDate -> setToPrint(0, 7)
+//
+//                    else -> setToPrintError(0)
+//                }
+//
+//
+//
+//                when (lindexAtOne) {
+//
+//                    zeroDate -> setToPrint(1, 0)
+//                    firstDate -> setToPrint(1, 1)
+//                    secondDate -> setToPrint(1, 2)
+//                    thirdDate -> setToPrint(1, 3)
+//                    fourthDate -> setToPrint(1, 4)
+//                    fifthDate -> setToPrint(1, 5)
+//                    sixthDate -> setToPrint(1, 6)
+//                    seventhDate -> setToPrint(1, 7)
+//
+//                    else -> setToPrintError(1)
+//                }
+//
+//                when (lindexAtTwo) {
+//
+//                    zeroDate -> setToPrint(2, 0)
+//                    firstDate -> setToPrint(2, 1)
+//                    secondDate -> setToPrint(2, 2)
+//                    thirdDate -> setToPrint(2, 3)
+//                    fourthDate -> setToPrint(2, 4)
+//                    fifthDate -> setToPrint(2, 5)
+//                    sixthDate -> setToPrint(2, 6)
+//                    seventhDate -> setToPrint(2, 7)
+//
+//                    else -> setToPrintError(2)
+//                }
+//                when (lindexAtThree) {
+//
+//                    zeroDate -> setToPrint(3, 0)
+//                    firstDate -> setToPrint(3, 1)
+//                    secondDate -> setToPrint(3, 2)
+//                    thirdDate -> setToPrint(3, 3)
+//                    fourthDate -> setToPrint(3, 4)
+//                    fifthDate -> setToPrint(3, 5)
+//                    sixthDate -> setToPrint(3, 6)
+//                    seventhDate -> setToPrint(3, 7)
+//
+//                    else -> setToPrintError(3)
+//                }
+//
+//                when (lindexAtFour) {
+//
+//                    zeroDate -> setToPrint(4, 0)
+//                    firstDate -> setToPrint(4, 1)
+//                    secondDate -> setToPrint(4, 2)
+//                    thirdDate -> setToPrint(4, 3)
+//                    fourthDate -> setToPrint(4, 4)
+//                    fifthDate -> setToPrint(4, 5)
+//                    sixthDate -> setToPrint(4, 6)
+//                    seventhDate -> setToPrint(4, 7)
+//
+//                    else -> setToPrintError(4)
+//                }
+//
+//                when (lindexAtFive) {
+//
+//                    zeroDate -> setToPrint(5, 0)
+//                    firstDate -> setToPrint(5, 1)
+//                    secondDate -> setToPrint(5, 2)
+//                    thirdDate -> setToPrint(5, 3)
+//                    fourthDate -> setToPrint(5, 4)
+//                    fifthDate -> setToPrint(5, 5)
+//                    sixthDate -> setToPrint(5, 6)
+//                    seventhDate -> setToPrint(5, 7)
+//
+//                    else -> setToPrintError(5)
+//                }
+//
+//                when (lindexAtSix) {
+//
+//                    zeroDate -> setToPrint(6, 0)
+//                    firstDate -> setToPrint(6, 1)
+//                    secondDate -> setToPrint(6, 2)
+//                    thirdDate -> setToPrint(6, 3)
+//                    fourthDate -> setToPrint(6, 4)
+//                    fifthDate -> setToPrint(6, 5)
+//                    sixthDate -> setToPrint(6, 6)
+//                    seventhDate -> setToPrint(6, 7)
+//
+//                    else -> setToPrintError(6)
+//                }
+//
+//                when (lindexAtSeven) {
+//
+//                    zeroDate -> setToPrint(7, 0)
+//                    firstDate -> setToPrint(7, 1)
+//                    secondDate -> setToPrint(7, 2)
+//                    thirdDate -> setToPrint(7, 3)
+//                    fourthDate -> setToPrint(7, 4)
+//                    fifthDate -> setToPrint(7, 5)
+//                    sixthDate -> setToPrint(7, 6)
+//                    seventhDate -> setToPrint(7, 7)
+//
+//                    else -> setToPrintError(7)
+//                }
+
+
+                //*/
+                //ADAPTER
+                //*/
+
+//                adapter = ItemTodayFragmentAdapter(datas)
+//
+//                val recyclerView = view?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView_fragmentToday)
+//                recyclerView?.layoutManager =  androidx.recyclerview.widget.LinearLayoutManager(context)
+//
+//                recyclerView?.adapter = this.adapter
 
-                lindexZero.text = lindexAtZero
-                lindexOne.text = lindexAtOne
-                lindexTwo.text = lindexAtTwo
-                lindexThree.text = lindexAtThree
-                lindexFour.text = lindexAtFour
-                lindexFive.text = lindexAtFive
-                lindexSix.text = lindexAtSix
-                lindexSeven.text = lindexAtSeven
-
-
-
-
-                fun setToPrint(indexNumber: Int, varAtZero: Int) {
-
-                    var nextTemp: TextView
-                    var nextWind: TextView
-                    var nextDate: TextView
-                    var nextIcon: TextView
-
-                    when (indexNumber) {
-
-                        0 -> {
-                            nextTemp = temp0
-                            nextWind = wind0
-                            nextDate = date0
-                            nextIcon = licon0
-                        }
-
-                        1 -> {
-                            nextTemp = temp1
-                            nextWind = wind1
-                            nextDate = date1
-                            nextIcon = licon1
-
-                        }
-
-                        2 -> {
-                            nextTemp = temp2
-                            nextWind = wind2
-                            nextDate = date2
-                            nextIcon = licon2
-
-                        }
-
-                        3 -> {
-                            nextTemp = temp3
-                            nextWind = wind3
-                            nextDate = date3
-                            nextIcon = licon3
-
-                        }
-                        4 -> {
-
-                            nextTemp = temp4
-                            nextWind = wind4
-                            nextDate = date4
-                            nextIcon = licon4
-
-                        }
-                        5 -> {
-                            nextTemp = temp5
-                            nextWind = wind5
-                            nextDate = date5
-                            nextIcon = licon5
-                        }
-                        6 -> {
-                            nextTemp = temp6
-                            nextWind = wind6
-                            nextDate = date6
-                            nextIcon = licon6
-
-                        }
-                        7 -> {
-                            nextTemp = temp7
-                            nextWind = wind7
-                            nextDate = date7
-                            nextIcon = licon7
-
-                        }
-
-                        else -> {
-
-                            nextTemp = temp1
-                            nextWind = wind1
-                            nextDate = date1
-                            nextIcon = licon1
-
-                        }
-                    }
-
-                    nextTemp.text = datas[varAtZero][0].temperature
-                    nextWind.text = datas[varAtZero][0].speed
-                    nextDate.text = datas[varAtZero][0].timestamp
-                    nextIcon.text = datas[varAtZero][0].iconWeather
-
-
-                }
-
-                fun setToPrintError(indexNumber: Int) {
-
-                    var nextTemp: TextView
-                    var nextWind: TextView
-                    var nextDate: TextView
-                    var nextIcon: TextView
-
-                    when (indexNumber) {
-
-                        0 -> {
-                            nextTemp = temp0
-                            nextWind = wind0
-                            nextDate = date0
-                            nextIcon = licon0
-                        }
-
-                        1 -> {
-                            nextTemp = temp1
-                            nextWind = wind1
-                            nextDate = date1
-                            nextIcon = licon1
-
-                        }
-
-                        2 -> {
-                            nextTemp = temp2
-                            nextWind = wind2
-                            nextDate = date2
-                            nextIcon = licon2
-
-                        }
-
-                        3 -> {
-                            nextTemp = temp3
-                            nextWind = wind3
-                            nextDate = date3
-                            nextIcon = licon3
-
-                        }
-                        4 -> {
-
-                            nextTemp = temp4
-                            nextWind = wind4
-                            nextDate = date4
-                            nextIcon = licon4
-
-                        }
-                        5 -> {
-                            nextTemp = temp5
-                            nextWind = wind5
-                            nextDate = date5
-                            nextIcon = licon5
-                        }
-                        6 -> {
-                            nextTemp = temp6
-                            nextWind = wind6
-                            nextDate = date6
-                            nextIcon = licon6
-
-                        }
-                        7 -> {
-                            nextTemp = temp7
-                            nextWind = wind7
-                            nextDate = date7
-                            nextIcon = licon7
-
-                        }
-
-                        else -> {
-
-                            nextTemp = temp1
-                            nextWind = wind1
-                            nextDate = date1
-                            nextIcon = licon1
-
-                        }
-                    }
-
-
-
-                    nextTemp.text = "No Temp"
-                    nextWind.text = "No Wind"
-                    nextDate.text = "No time"
-                    nextIcon.text = "No Icon"
-                }
-
-
-                when (lindexAtZero) {
-
-                    zeroDate -> setToPrint(0, 0)
-                    firstDate -> setToPrint(0, 1)
-                    secondDate -> setToPrint(0, 2)
-                    thirdDate -> setToPrint(0, 3)
-                    fourthDate -> setToPrint(0, 4)
-                    fifthDate -> setToPrint(0, 5)
-                    sixthDate -> setToPrint(0, 6)
-                    seventhDate -> setToPrint(0, 7)
-
-                    else -> setToPrintError(0)
-                }
-
-
-
-                when (lindexAtOne) {
-
-                    zeroDate -> setToPrint(1, 0)
-                    firstDate -> setToPrint(1, 1)
-                    secondDate -> setToPrint(1, 2)
-                    thirdDate -> setToPrint(1, 3)
-                    fourthDate -> setToPrint(1, 4)
-                    fifthDate -> setToPrint(1, 5)
-                    sixthDate -> setToPrint(1, 6)
-                    seventhDate -> setToPrint(1, 7)
-
-                    else -> setToPrintError(1)
-                }
-
-                when (lindexAtTwo) {
-
-                    zeroDate -> setToPrint(2, 0)
-                    firstDate -> setToPrint(2, 1)
-                    secondDate -> setToPrint(2, 2)
-                    thirdDate -> setToPrint(2, 3)
-                    fourthDate -> setToPrint(2, 4)
-                    fifthDate -> setToPrint(2, 5)
-                    sixthDate -> setToPrint(2, 6)
-                    seventhDate -> setToPrint(2, 7)
-
-                    else -> setToPrintError(2)
-                }
-                when (lindexAtThree) {
-
-                    zeroDate -> setToPrint(3, 0)
-                    firstDate -> setToPrint(3, 1)
-                    secondDate -> setToPrint(3, 2)
-                    thirdDate -> setToPrint(3, 3)
-                    fourthDate -> setToPrint(3, 4)
-                    fifthDate -> setToPrint(3, 5)
-                    sixthDate -> setToPrint(3, 6)
-                    seventhDate -> setToPrint(3, 7)
-
-                    else -> setToPrintError(3)
-                }
-
-                when (lindexAtFour) {
-
-                    zeroDate -> setToPrint(4, 0)
-                    firstDate -> setToPrint(4, 1)
-                    secondDate -> setToPrint(4, 2)
-                    thirdDate -> setToPrint(4, 3)
-                    fourthDate -> setToPrint(4, 4)
-                    fifthDate -> setToPrint(4, 5)
-                    sixthDate -> setToPrint(4, 6)
-                    seventhDate -> setToPrint(4, 7)
-
-                    else -> setToPrintError(4)
-                }
-
-                when (lindexAtFive) {
-
-                    zeroDate -> setToPrint(5, 0)
-                    firstDate -> setToPrint(5, 1)
-                    secondDate -> setToPrint(5, 2)
-                    thirdDate -> setToPrint(5, 3)
-                    fourthDate -> setToPrint(5, 4)
-                    fifthDate -> setToPrint(5, 5)
-                    sixthDate -> setToPrint(5, 6)
-                    seventhDate -> setToPrint(5, 7)
-
-                    else -> setToPrintError(5)
-                }
-
-                when (lindexAtSix) {
-
-                    zeroDate -> setToPrint(6, 0)
-                    firstDate -> setToPrint(6, 1)
-                    secondDate -> setToPrint(6, 2)
-                    thirdDate -> setToPrint(6, 3)
-                    fourthDate -> setToPrint(6, 4)
-                    fifthDate -> setToPrint(6, 5)
-                    sixthDate -> setToPrint(6, 6)
-                    seventhDate -> setToPrint(6, 7)
-
-                    else -> setToPrintError(6)
-                }
-
-                when (lindexAtSeven) {
-
-                    zeroDate -> setToPrint(7, 0)
-                    firstDate -> setToPrint(7, 1)
-                    secondDate -> setToPrint(7, 2)
-                    thirdDate -> setToPrint(7, 3)
-                    fourthDate -> setToPrint(7, 4)
-                    fifthDate -> setToPrint(7, 5)
-                    sixthDate -> setToPrint(7, 6)
-                    seventhDate -> setToPrint(7, 7)
-
-                    else -> setToPrintError(7)
-                }
 
             })
 

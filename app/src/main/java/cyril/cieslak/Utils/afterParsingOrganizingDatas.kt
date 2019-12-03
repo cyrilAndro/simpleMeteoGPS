@@ -81,56 +81,56 @@ class afterParsingOrganizingDatas (
 
 
 
-   fun associatingDatas (view : View, datas : MutableList<MutableList<Weather>>,
-
-                         temp0 : TextView,
-                         temp1 : TextView,
-                         temp2 : TextView,
-                         temp3 : TextView,
-                         temp4 : TextView,
-                         temp5 : TextView,
-                         temp6 : TextView,
-                         temp7 : TextView,
-
-                         wind0 : TextView,
-                         wind1 : TextView,
-                         wind2 : TextView,
-                         wind3 : TextView,
-                         wind4 : TextView,
-                         wind5 : TextView,
-                         wind6 : TextView,
-                         wind7 : TextView,
-
-                         date0 : TextView,
-                         date1 : TextView,
-                         date2 : TextView,
-                         date3 : TextView,
-                         date4 : TextView,
-                         date5 : TextView,
-                         date6 : TextView,
-                         date7 : TextView,
-
-                         licon0 : TextView,
-                         licon1 : TextView,
-                         licon2 : TextView,
-                         licon3 : TextView,
-                         licon4 : TextView,
-                         licon5 : TextView,
-                         licon6 : TextView,
-                         licon7 : TextView,
-
-                         iconTop0 : ImageView,
-                         iconTop1 : ImageView,
-                         iconTop2 : ImageView,
-                         iconTop3 : ImageView,
-                         iconTop4 : ImageView,
-                         iconTop5 : ImageView,
-                         iconTop6 : ImageView,
-                         iconTop7 : ImageView
-
-
-
-
+   fun associatingDatas (view : View, datas : MutableList<MutableList<Weather>>
+//
+//                         temp0 : TextView,
+//                         temp1 : TextView,
+//                         temp2 : TextView,
+//                         temp3 : TextView,
+//                         temp4 : TextView,
+//                         temp5 : TextView,
+//                         temp6 : TextView,
+//                         temp7 : TextView,
+//
+//                         wind0 : TextView,
+//                         wind1 : TextView,
+//                         wind2 : TextView,
+//                         wind3 : TextView,
+//                         wind4 : TextView,
+//                         wind5 : TextView,
+//                         wind6 : TextView,
+//                         wind7 : TextView,
+//
+//                         date0 : TextView,
+//                         date1 : TextView,
+//                         date2 : TextView,
+//                         date3 : TextView,
+//                         date4 : TextView,
+//                         date5 : TextView,
+//                         date6 : TextView,
+//                         date7 : TextView,
+//
+//                         licon0 : TextView,
+//                         licon1 : TextView,
+//                         licon2 : TextView,
+//                         licon3 : TextView,
+//                         licon4 : TextView,
+//                         licon5 : TextView,
+//                         licon6 : TextView,
+//                         licon7 : TextView,
+//
+//                         iconTop0 : ImageView,
+//                         iconTop1 : ImageView,
+//                         iconTop2 : ImageView,
+//                         iconTop3 : ImageView,
+//                         iconTop4 : ImageView,
+//                         iconTop5 : ImageView,
+//                         iconTop6 : ImageView,
+//                         iconTop7 : ImageView
+//
+//
+//
+//
 
 
 

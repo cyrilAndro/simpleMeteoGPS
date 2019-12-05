@@ -15,6 +15,10 @@ import cyril.cieslak.simplemeteogps.Parsers.parseWeatherDatas
 
 import cyril.cieslak.simplemeteogps.R
 import cyril.cieslak.simplemeteogps.Weather
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CityFragment : Fragment() {
 
@@ -56,6 +60,21 @@ class CityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        CoroutineScope(Dispatchers.IO).launch {
+            withContext(Dispatchers.Main){
+                feedTheFragment()
+
+            }
+
+        }
+
+
+
+
+
+    }
+
+    fun feedTheFragment () {
 
         // On fait entrer viewModel dans le scope de l'activité
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
@@ -77,7 +96,6 @@ class CityFragment : Fragment() {
                 Log.i("pluto", "RecycylerView dasn CityFragment = $recyclerView")
 
             })
-
 
     }
 

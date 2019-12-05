@@ -47,4 +47,5 @@
     <string name="indextwo">indexTwo</string>
     <string name="indexone">indexOne</string>
     <string name="indexzero">indexZero</string>
+    <string name="tomorrowfragment">TomorrowFragment</string>
 </resources>

@@ -12,6 +12,9 @@ import cyril.cieslak.Utils.CompareDates
 import cyril.cieslak.simplemeteogps.Downloader.JSONDownloader
 import cyril.cieslak.simplemeteogps.Parsers.parseWeatherDatas
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 
 
@@ -52,8 +55,11 @@ class MainActivity : AppCompatActivity() {
             buildLocationRequest()
             buildLocationCallBack()
 
+            CoroutineScope(Dispatchers.Main).launch {
+                sendJsonResultToTheViewModel()
+            }
 
-            sendJsonResultToTheViewModel()
+
 
 
 
@@ -94,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                     "http://api.openweathermap.org/data/2.5/forecast?lat=$lattitude&lon=$longgitude&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
 //               // "http://api.openweathermap.org/data/2.5/forecast?lat=44.7914748&lon=20.4775094&units=metric&cnt=24&appid=467005a2981f9965ac02fa6dabd5fc2e"
                 Log.i("dingo", "jsonWeather dasn CityFragment = $jsonWeather")
+
 
                 var jsonResultText = JSONDownloader(this, jsonWeather).execute().get()
                 // getTheNewLocation(jsonWeather)

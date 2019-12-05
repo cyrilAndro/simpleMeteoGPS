@@ -10,6 +10,17 @@ import java.text.SimpleDateFormat
 
 class CompareDates {
 
+    fun todayDateNotFormatted () : String {
+
+        val calendar = Calendar.getInstance()
+        val todayNotFormatted = calendar.time
+
+        val dateFormat = SimpleDateFormat ("yyyy-MM-dd HH:mm:ss")
+        val todayNotFormattedAsString = dateFormat.format(todayNotFormatted)
+
+        return todayNotFormattedAsString
+    }
+
 
 
     fun todayDateFormatted () : String {
@@ -23,6 +34,21 @@ class CompareDates {
 
         return todayAsString
 
+    }
+
+    fun tomorrowDateNotFormatted () : String {
+
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, 1)
+
+        val tomorrow = calendar.time
+
+
+        val dateFormat = SimpleDateFormat ("yyyy-MM-dd HH:mm:ss")
+
+        val tomorrowNotFormattedAsString = dateFormat.format(tomorrow)
+
+        return tomorrowNotFormattedAsString
     }
 
     fun tomorrowDateFormatted () : String {

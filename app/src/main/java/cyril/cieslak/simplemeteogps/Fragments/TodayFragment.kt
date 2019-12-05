@@ -11,13 +11,16 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cyril.cieslak.Utils.CompareDates
-import cyril.cieslak.Utils.afterParsingOrganizingDatas
+import cyril.cieslak.Utils.adapterForFragmentToday
 // import cyril.cieslak.simplemeteogps.Adapters.ItemTodayFragmentAdapter
 import cyril.cieslak.simplemeteogps.MainActivityViewModel
 
 import cyril.cieslak.simplemeteogps.R
 import cyril.cieslak.simplemeteogps.Weather
-import kotlinx.android.synthetic.main.item_fragment_today.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class TodayFragment : Fragment() {
@@ -58,7 +61,18 @@ class TodayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-//        var lindexZero = view.findViewById<TextView>(R.id.indexForZero)
+        CoroutineScope(Dispatchers.IO).launch {
+            withContext(Dispatchers.Main) {
+                feedTheTodayFragment(view)
+            }
+
+        }
+
+    }
+
+    fun feedTheTodayFragment (view: View) {
+
+        //        var lindexZero = view.findViewById<TextView>(R.id.indexForZero)
 //        var lindexOne = view.findViewById<TextView>(R.id.indexForOne)
 //        var lindexTwo = view.findViewById<TextView>(R.id.indexForTwo)
 //        var lindexThree = view.findViewById<TextView>(R.id.indexForThree)
@@ -128,9 +142,9 @@ class TodayFragment : Fragment() {
                 var leToday = CompareDates().todayDateFormatted()
                 Log.i("today", "value of today : $leToday")
 
-                afterParsingOrganizingDatas(view, datas, leToday).establishIndex()
+                adapterForFragmentToday(view, datas, leToday).establishIndex()
 
-                afterParsingOrganizingDatas(view, datas, leToday).associatingDatas(
+                adapterForFragmentToday(view, datas, leToday).associatingDatas(
                     view, datas,
 
                     temp0, temp1, temp2, temp3, temp4, temp5, temp6, temp7,

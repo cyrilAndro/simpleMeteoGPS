@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,6 +24,8 @@
         app:layout_constraintBottom_toTopOf="@id/todayFragment"
         />
 
+
+
     <fragment
         android:name="cyril.cieslak.simplemeteogps.Fragments.TodayFragment"
         android:id="@+id/todayFragment"
@@ -25,7 +34,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityFragment"
+        app:layout_constraintBottom_toTopOf="@id/tomorrowFragment"
+        />
+
+
+    <fragment
+        android:name="cyril.cieslak.simplemeteogps.Fragments.TomorrowFragment"
+        android:id="@+id/tomorrowFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todayFragment"
         app:layout_constraintBottom_toTopOf="@id/yourCurrentLongitude"
+
         />
 
     <TextView
@@ -76,3 +98,5 @@
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

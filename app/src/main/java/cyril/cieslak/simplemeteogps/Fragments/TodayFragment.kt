@@ -70,7 +70,7 @@ class TodayFragment : Fragment() {
 
     }
 
-    fun feedTheTodayFragment (view: View) {
+    private suspend fun feedTheTodayFragment (view: View) {
 
         //        var lindexZero = view.findViewById<TextView>(R.id.indexForZero)
 //        var lindexOne = view.findViewById<TextView>(R.id.indexForOne)

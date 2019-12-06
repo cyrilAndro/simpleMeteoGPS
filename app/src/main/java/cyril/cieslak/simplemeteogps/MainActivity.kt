@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun sendJsonResultToTheViewModel() {
+    private suspend fun sendJsonResultToTheViewModel() {
 
         viewModel.getStateLatitude().observe(this, Observer {
 

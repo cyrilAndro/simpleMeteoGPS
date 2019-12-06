@@ -120,7 +120,7 @@ class TomorrowFragment : Fragment() {
 
     }
 
-    fun feedTomorrowFragment (view : View) {
+    private suspend fun feedTomorrowFragment (view : View) {
 
         var allDatas = view.findViewById<TextView>(R.id.listAllDatasForTomorrowFragment)
 
